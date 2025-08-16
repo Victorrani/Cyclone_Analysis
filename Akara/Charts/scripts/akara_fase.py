@@ -76,10 +76,10 @@ ax1.axvspan(time2, time3, color='#d62828', alpha=0.3)
 ax1.axvspan(time3, time4, color='#9aa981', alpha=0.3)
 
 
-ax1.text(df_plot['time'][1], df2['mslp'][1] ,'             Subtropical Phase                ', bbox=dict(boxstyle="darrow,pad=0.1",
-                                                                                                          facecolor='lightcoral', edgecolor='lightcoral'))
-ax1.text(df_plot['time'][22], df2['mslp'][1] ,'                                  Tropical Phase                                ', bbox=dict(boxstyle="darrow,pad=0.1", facecolor='lightcoral', edgecolor='lightcoral'))
-ax1.text(df_plot['time'][53], df2['mslp'][1] ,' Subtropical Phase ', bbox=dict(boxstyle="darrow,pad=0.1", facecolor='lightcoral', edgecolor='lightcoral'))
+#ax1.text(df_plot['time'][1], df2['mslp'][1] ,'             Subtropical Phase                ', bbox=dict(boxstyle="darrow,pad=0.1",
+#                                                                                                          facecolor='lightcoral', edgecolor='lightcoral'))
+#ax1.text(df_plot['time'][22], df2['mslp'][1] ,'                                  Tropical Phase                                ', bbox=dict(boxstyle="darrow,pad=0.1", facecolor='lightcoral', edgecolor='lightcoral'))
+#ax1.text(df_plot['time'][53], df2['mslp'][1] ,' Subtropical Phase ', bbox=dict(boxstyle="darrow,pad=0.1", facecolor='lightcoral', edgecolor='lightcoral'))
 
 
 # Definir os ticks do eixo X para datas específicas, espaçando a cada 2 valores
@@ -109,4 +109,4 @@ plt.legend(handles=handles, labels=labels, loc='lower right', ncol=1)
 
 # Mostrar o gráfico
 plt.tight_layout()
-plt.savefig(DIRFIG+'serie.png')
+plt.savefig(DIRFIG+'serie_tcc.png')

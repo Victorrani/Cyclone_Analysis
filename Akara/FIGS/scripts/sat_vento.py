@@ -8,6 +8,7 @@ import cartopy, cartopy.crs as ccrs
 import matplotlib.colors as mcolors
 import matplotlib.colors
 import metpy.calc as mpcalc
+from matplotlib.colors import BoundaryNorm, LinearSegmentedColormap
 from metpy.calc import equivalent_potential_temperature
 from metpy.units import units
 from metpy.calc import dewpoint_from_relative_humidity
@@ -19,25 +20,28 @@ import pandas as pd
 
 
 DIRDADO = '/home/victor/USP/sinotica3/ATMOS-BUD/dados/'
-DIRFIG = '/home/victor/USP/sinotica3/ATMOS-BUD_Results/Akara/Charts/sat_vento/'
+DIRFIG = '/home/victor/USP/sinotica3/ATMOS-BUD_Results/Akara/FIGS/Automated_Figures/sat_vento/'
 DIRSHAPE = '/home/victor/USP/sat_goes/shapefile/BR_UF_2019.shp'
-DIRSAT = '/home/victor/USP/sat_goes/fig_dados/20240214_23/ch13/'
+DIRSAT = '/home/victor/USP/sat_goes/fig_dados/20240214_22/ch13/'
 DIRCSV2 = '/home/victor/USP/sinotica3/ATMOS-BUD_Results/Akara/Charts/csv_files/'
 
 # Paleta sem tons de cinza, ajustando as cores para temperaturas
-palCO_new_adjusted = ["#FF0000", "#FFC0CB", "#ADD8E6", "#00008B", "#FFFF00", "#FFA500"]
-cmapCO_new_adjusted = cm.LinearSegmentedColormap.from_list("IR_clean_adjusted", palCO_new_adjusted, N=20)
+tb_cmap_noaa = LinearSegmentedColormap.from_list('my_gradient', (
+    (0.000, (0.961, 0.961, 0.961)),
+    (0.068, (0.961, 0.961, 0.961)),
+    (0.070, (0.541, 0.043, 0.522)),
+    (0.110, (0.820, 0.820, 0.820)),
+    (0.150, (0.012, 0.012, 0.012)),
+    (0.190, (0.957, 0.024, 0.000)),
+    (0.220, (0.937, 1.000, 0.000)),
+    (0.280, (0.016, 0.957, 0.000)),
+    (0.300, (0.000, 0.341, 0.298)),
+    (0.300, (0.000, 0.161, 0.380)),
+    (0.399, (0.200, 1.000, 1.000)),
+    (0.400, (1.000, 1.000, 1.000)),
+    (1.000, (0.000, 0.000, 0.000))
+))
 
-# Aplicando a paleta suave com 25 pontos (metade do original)
-cmapCO_adjusted = cmapCO_new_adjusted(np.linspace(0, 1, 80))  # 25 divisões na paleta colorida
-
-# Criando a paleta sem cinza com 120 pontos e adicionando as cores ajustadas
-cmapPB_adjusted = cm.LinearSegmentedColormap.from_list("", ["white", "black"])
-cmapPB_adjusted = cmapPB_adjusted(np.linspace(0, 1, 145))  # 120 divisões na paleta total
-cmapPB_adjusted[:80, :] = cmapCO_adjusted  # Inserindo a paleta colorida nas primeiras 25 divisões
-
-# Definindo o mapa de cores final sem tons de cinza
-cmap_TbINPE_adjusted = cm.ListedColormap(cmapPB_adjusted)
 
 ds_akara_slevel = xr.open_dataset(DIRDADO+'akara_reboita1.nc')
 
@@ -83,7 +87,7 @@ for i in range(0, n_final):
             ch13 = arq_entrada.Band1
             ch13.data = ch13.data / 100 - 273.15  # Convertendo de Kelvin para Celsius
 
-            fig, ax = plt.subplots(figsize=(8, 7), subplot_kw={'projection': ccrs.PlateCarree()})
+            fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={'projection': ccrs.PlateCarree()})
             
             ax.add_feature(cfeature.LAND, edgecolor='black')
             ax.add_feature(cfeature.COASTLINE, linewidth=2.0)  # Aumenta a grossura da linha de costa
@@ -95,14 +99,14 @@ for i in range(0, n_final):
 
             # Plotando os dados do canal 13
             img = ch13.plot(
-    ax=ax, cmap=cmap_TbINPE_adjusted, transform=ccrs.PlateCarree(), vmin=-90, vmax=55,
+    ax=ax, cmap=tb_cmap_noaa, transform=ccrs.PlateCarree(), vmin=-100, vmax=100,
     cbar_kwargs={
         "label": "Brightness Temperature (°C)", 
         "orientation": "vertical",  # Barra de cores vertical
         "pad": 0.05,                # Distância da barra para o gráfico
         "aspect": 20,               # Aumenta a espessura da barra de cores
         "shrink": 0.8,              # Aumenta a altura total da barra de cores
-        "ticks": np.arange(-90, 60, 15),  # Personalizar os ticks
+        "ticks": np.arange(-100, 100, 10),  # Personalizar os ticks
         "extend": 'neither'             # Aumenta o tamanho da fonte dos ticks
     }
 )
@@ -118,7 +122,7 @@ for i in range(0, n_final):
 # Plotar o campo de vento com barbelas
             ax.barbs(X[::sep,::sep], Y[::sep,::sep], u_1000[::sep,::sep], v_1000[::sep,::sep], 
             transform=ccrs.PlateCarree(), 
-            barbcolor='white', flagcolor='white', flip_barb=True, length=4) 
+            barbcolor='black', flagcolor='black', flip_barb=True, length=4) 
 
             ax.scatter(lon_point, lat_point, color='#50C878', marker='X', s=100, label="Center")
 
