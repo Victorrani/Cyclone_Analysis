@@ -167,34 +167,47 @@ for i in range(len(df)):
         cross["longitude"], cross["pressure_level"], cross["w"], cmap='coolwarm',
           levels=levels, norm=norm, extend='both')
     cbar = plt.colorbar(w_contourf, ax=ax, orientation='vertical', pad=0.05)
-    cbar.set_label('Vertical Velocity (Pa/s)', fontsize=12)
+    cbar.set_label('Pa/s', fontsize=18)
     cbar.ax.tick_params(labelsize=14)
 
     pot_contour = ax.contour(
     cross["longitude"], 
     cross["pressure_level"], 
     cross["pv"] * 1e6,
-    colors='black', levels=np.arange(-4, 0, 1), linewidths=2.0
+    colors='black', levels=np.arange(-4, 0, 1), linewidths=3.0, alpha=0.6
 )
-    ax.clabel(pot_contour, inline=1, inline_spacing=0, fontsize=10, fmt="%1.0f")
+    ax.clabel(pot_contour, inline=1, inline_spacing=0, fontsize=18, fmt="%1.0f")
+
+    pot_contour1 = ax.contour(
+    cross["longitude"], 
+    cross["pressure_level"], 
+    cross["pv"] * 1e6,
+    colors='black', levels=[-2], linewidths=3.0
+)
+    ax.clabel(pot_contour1, inline=1, inline_spacing=0, fontsize=18, fmt="%1.0f")
 
     
     
     # Configuração dos eixos
     ax.set_title(
     f"Akara Cross Section {time}\nPotential Vorticity (PV) and Vertical Velocity (ω) Lat: {lat:.2f} | Central Lon: {lon:.2f}",
-    loc="left", fontsize=16
+    loc="left", fontsize=18
 )
-    ax.set_ylabel("Pressure (hPa)", fontsize=16)
-    ax.set_xlabel("Longitude (degrees east)", fontsize=14)
+    ax.set_ylabel("Pressure (hPa)", fontsize=18)
+    ax.set_xlabel("Longitude (degrees east)", fontsize=18)
     
     ax.tick_params(axis='x', labelsize=16)
+
+
+ 
+ 
     ax.set_yscale("symlog")
     ax.set_ylim(1000, 100)
     yticks = np.arange(1000, 0, -100)  # 1000, 900, ..., 100
     ax.set_yticks(yticks)
     ax.set_yticklabels(yticks, fontsize=14)
     
+    ax.axvline(x=lon, color="red", linestyle="-", linewidth=0.5, label=f"Lon {lon:.2f}")
 
 
     # Salva e fecha a figura
