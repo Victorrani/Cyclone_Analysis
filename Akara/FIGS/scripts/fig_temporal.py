@@ -373,21 +373,21 @@ arrow_props_bidirecional = dict(
 )
 
 ax3.annotate('',
-    xy=(x_positions[0], 1000),      # Ponta 1
-    xytext=(x_positions[10], 1000),  # Ponta 2
+    xy=(x_positions[0], 210),      # Ponta 1
+    xytext=(x_positions[10], 210),  # Ponta 2
     arrowprops=arrow_props_bidirecional,
     ha='center'
 )
 
 ax3.annotate('',
-    xy=(x_positions[10], 1000),      # Ponta 1
-    xytext=(x_positions[25], 1000),  # Ponta 2
+    xy=(x_positions[10], 210),      # Ponta 1
+    xytext=(x_positions[25], 210),  # Ponta 2
     arrowprops=arrow_props_bidirecional,
     ha='center'
 )
 ax3.annotate('',
-    xy=(x_positions[25], 1000),      # Ponta 1
-    xytext=(x_positions[32], 1000),  # Ponta 2
+    xy=(x_positions[25], 210),      # Ponta 1
+    xytext=(x_positions[32], 210),  # Ponta 2
     arrowprops=arrow_props_bidirecional,
     ha='center'
 )

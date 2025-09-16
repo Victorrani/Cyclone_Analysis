@@ -89,7 +89,8 @@ ax.plot(df2['Lon'], df2['Lat'], transform=ccrs.PlateCarree(),
 for phase in df2['phase'].unique():
     phase_data = df2[df2['phase'] == phase]
     ax.scatter(phase_data['Lon'], phase_data['Lat'], transform=ccrs.PlateCarree(),
-               color=colors[phase], marker=symbols[phase], s=50, label=f'{phase}', linestyle='-')
+               color=colors[phase], marker=symbols[phase], s=180, label=f'{phase}',
+                 linestyle='-', edgecolors='gray', linewidth=1.5)
 
 datas_destaque = ["202402142100", "202402152100","202402162100","202402172100", "202402191500", "202402201200"]
 
@@ -115,4 +116,4 @@ ax.legend(loc='lower right', fontsize=16)
 #plt.title('Akará trackfile', loc='left', fontsize=18)
 
 # Salvar e exibir o gráfico
-plt.savefig(f'{DIRFIG}Akara_mean_sst_track.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{DIRFIG}Akara_mean_sst_track_destaque.png', dpi=300, bbox_inches='tight')

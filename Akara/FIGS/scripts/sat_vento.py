@@ -124,7 +124,7 @@ for i in range(0, n_final):
             transform=ccrs.PlateCarree(), 
             barbcolor='black', flagcolor='black', flip_barb=True, length=4) 
 
-            ax.scatter(lon_point, lat_point, color='#50C878', marker='X', s=100, label="Center")
+            ax.scatter(lon_point, lat_point, color='black', marker='X', s=100, label="Center")
 
             # Ajustando os limites do gráfico para o intervalo desejado
             ax.set_extent([-60, -30, -40, -15], crs=ccrs.PlateCarree())

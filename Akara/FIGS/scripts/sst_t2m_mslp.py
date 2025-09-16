@@ -90,9 +90,9 @@ for i in range(0, n_final):
     levels_mslp = np.arange(data_min_mslp, data_max_mslp, interval_mslp)
     levels2_mslp = np.arange(data_min_mslp ,data_max_mslp, 3)
 
-    ct1 = ax.contour(lon, lat, msl, linewidths=1, levels=levels_mslp, colors='lightgrey')
-    ct2 = ax.contour(lon, lat, msl, linewidths=1, levels=levels2_mslp, colors='lightgrey')
-    ax.clabel(ct2, inline=1, inline_spacing=0, fontsize='12',fmt = '%1.0f', colors= 'lightgrey')
+    ct1 = ax.contour(lon, lat, msl, linewidths=2.5, levels=levels_mslp, colors='grey')
+    ct2 = ax.contour(lon, lat, msl, linewidths=2.5, levels=levels2_mslp, colors='grey')
+    ax.clabel(ct2, inline=1, inline_spacing=0, fontsize='12',fmt = '%1.0f', colors= 'grey')
     gl = ax.gridlines(crs=ccrs.PlateCarree(), color='black',
                  alpha=1.0, linestyle='--', linewidth=0.25,
                 xlocs=np.arange(-180, 180, 5),
